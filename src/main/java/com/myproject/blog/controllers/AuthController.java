@@ -1,5 +1,7 @@
 package com.myproject.blog.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -69,7 +71,7 @@ public class AuthController {
 	
 	//register user api
 	@PostMapping("/register")
-	public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto) {
+	public ResponseEntity<UserDto> registerUser(@RequestBody @Valid UserDto userDto) {
 		
 		UserDto registeredUser = this.userService.registerNewUser(userDto);
 		

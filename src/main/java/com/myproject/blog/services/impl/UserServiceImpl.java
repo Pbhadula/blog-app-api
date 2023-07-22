@@ -3,6 +3,8 @@ package com.myproject.blog.services.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -106,7 +108,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto registerNewUser(UserDto userDto) {
+	public UserDto registerNewUser(@Valid UserDto userDto) {
 		
 		User user = this.modelMapper.map(userDto, User.class);
 		
