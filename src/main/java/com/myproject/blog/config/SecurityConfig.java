@@ -1,6 +1,10 @@
 package com.myproject.blog.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -83,6 +87,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// TODO Auto-generated method stub
 		return super.authenticationManagerBean();
 	}
+	
+	@Bean
+	public FilterRegistrationBean corsFilter() {
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		
+		CorsConfiguration corsConfiguration = new CorsConfiguration();
+		corsConfiguration.setAllowCredentials(true);
+		corsConfiguration.addAllowedOriginPattern("*");
+		corsConfiguration.addAllowedHeader("Authorization");
+		corsConfiguration.addAllowedHeader("Content-Type");
+		corsConfiguration.addAllowedHeader("Accept");
+		// Add allowed HTTP methods using setAllowedMethods method
+		corsConfiguration.addAllowedMethod(HttpMethod.POST);
+		corsConfiguration.addAllowedMethod(HttpMethod.GET);
+		corsConfiguration.addAllowedMethod(HttpMethod.DELETE);
+		corsConfiguration.addAllowedMethod(HttpMethod.PUT);
+		corsConfiguration.addAllowedMethod(HttpMethod.OPTIONS);
+		corsConfiguration.setMaxAge(3600L);
+		
+		
+		source.registerCorsConfiguration("/**", corsConfiguration);
+		
+		FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+		
+		return bean;
+		
+		}
 	
 	
 
